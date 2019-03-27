@@ -5,7 +5,6 @@ pipeline {
     TEST='test1'
     BUILD_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
     BUILD_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-    BUILD_BRANCH_2 = sh(returnStdout: true, script: 'git symbolic-ref --short HEAD').trim()
   }
 
   options {
@@ -38,17 +37,17 @@ pipeline {
       }
     }
     stage('Deploy staging') {
-      when {  allOf { branch 'master'; tag "*.sta" } }
+      when { environment name: 'BUILD_TAG', value: '*.sta' }
       steps {
         sh 'echo build master -staging'
       }
     }
-    // stage('Deploy master') {
-    //   when { allOf { branch 'master'; buildingTag() } }
-    //   steps {
-    //     sh 'echo build master - production'
-    //   }
-    // }
+    stage('Deploy master') {
+      expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
+      steps {
+        sh 'echo build master - production'
+      }
+    }
   }
   post {
       always {
