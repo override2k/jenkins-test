@@ -43,7 +43,7 @@ pipeline {
       }
     }
     stage('Deploy master') {
-      expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
+      when { expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ } }
       steps {
         sh 'echo build master - production'
       }
