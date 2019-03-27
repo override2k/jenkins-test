@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    TEST='test'
+    TEST='test1'
   }
 
   options {
