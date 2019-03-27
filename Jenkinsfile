@@ -3,6 +3,8 @@ pipeline {
 
   environment {
     TEST='test1'
+    BUILD_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
+    BUILD_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
   }
 
   options {
@@ -12,8 +14,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        env.BUILD_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
-        env.BUILD_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
         sh 'echo do build'
         echo sh(returnStdout: true, script: 'env')
       }
