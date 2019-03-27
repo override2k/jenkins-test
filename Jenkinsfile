@@ -48,8 +48,7 @@ pipeline {
   }
   post {
       always {
-          sh 'rm var/log/test.log'
-          junit 'tests/_output/*.xml'
+          sh 'echo Done!'
       }
   }
 }
