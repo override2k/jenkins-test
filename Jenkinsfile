@@ -42,12 +42,6 @@ pipeline {
         sh 'echo build master -staging'
       }
     }
-    stage('Deploy staging') {
-      when { tag "*.sta" }
-      steps {
-        sh 'echo build master -staging'
-      }
-    }
     stage('Deploy master') {
       when { tag pattern: "^\\d+\\.\\d+\\.\\d+\$", comparator: "REGEXP"}
       steps {
