@@ -49,7 +49,7 @@ pipeline {
       }
     }
     stage('Deploy master') {
-      when { tag pattern: "^([0-9]+)\.([0-9]+)\.([0-9]+)$", comparator: "REGEXP"}
+      when { tag pattern: "^\\d+\\.\\d+\\.\\d+\$", comparator: "REGEXP"}
       steps {
         sh 'echo build master - production'
       }
