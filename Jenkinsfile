@@ -37,7 +37,7 @@ pipeline {
       }
     }
     stage('Deploy staging') {
-      when { environment name: 'BUILD_TAG', value: '*.sta' }
+      when { expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]\.sta$/ } }
       steps {
         sh 'echo build master -staging'
       }
