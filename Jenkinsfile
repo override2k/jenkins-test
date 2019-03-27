@@ -5,6 +5,7 @@ pipeline {
     TEST='test1'
     BUILD_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
     BUILD_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+    BUILD_BRANCH_2 = sh(returnStdout: true, script: 'git symbolic-ref --short HEAD').trim()
   }
 
   options {
