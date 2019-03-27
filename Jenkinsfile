@@ -28,7 +28,7 @@ pipeline {
       }
     }
     stage('Deploy dev') {
-      when { brtanch 'master' }
+      when { branch 'master' }
       steps {
         sh 'echo build master - dev '
       }
