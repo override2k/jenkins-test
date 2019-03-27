@@ -39,7 +39,7 @@ pipeline {
     stage('Deploy staging') {
       when { 
         allOf {
-          buildingTag();
+          expression { BUILD_TAG != null }
           expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]\.sta$/ } 
         }
       }
@@ -50,7 +50,7 @@ pipeline {
     stage('Deploy master') {
       when { 
         allOf {
-          buildingTag();
+          expression { BUILD_TAG != null }
           expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
         }
       }
