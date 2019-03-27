@@ -42,17 +42,18 @@ pipeline {
         sh 'echo build master -staging'
       }
     }
-    //stage('Deploy master') {
-    //  when { 
-    //    allOf {
-    //      expression { TAG_NAME != null }
-    //      expression { TAG_NAME ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
-    //    }
-    //  }
-    //  steps {
-    //    sh 'echo build master - production'
-    //  }
-    //}
+    stage('Deploy staging') {
+      when { tag "*.sta" }
+      steps {
+        sh 'echo build master -staging'
+      }
+    }
+    stage('Deploy master') {
+      when { tag ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
+      steps {
+        sh 'echo build master - production'
+      }
+    }
   }
   post {
       always {
