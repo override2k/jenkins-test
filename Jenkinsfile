@@ -3,8 +3,8 @@ pipeline {
 
   environment {
     TEST='test1'
-    BUILD_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
-    BUILD_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+    // BUILD_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
+    // BUILD_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
   }
 
   options {
@@ -37,27 +37,22 @@ pipeline {
       }
     }
     stage('Deploy staging') {
-      when { 
-        allOf {
-          expression { BUILD_TAG != null }
-          expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]\.sta$/ } 
-        }
-      }
+      when { tag "*.sta" }
       steps {
         sh 'echo build master -staging'
       }
     }
-    stage('Deploy master') {
-      when { 
-        allOf {
-          expression { BUILD_TAG != null }
-          expression { BUILD_TAG ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
-        }
-      }
-      steps {
-        sh 'echo build master - production'
-      }
-    }
+    //stage('Deploy master') {
+    //  when { 
+    //    allOf {
+    //      expression { TAG_NAME != null }
+    //      expression { TAG_NAME ==~ /^[0-9]+\.[0-9]+\.[0-9]$/ }
+    //    }
+    //  }
+    //  steps {
+    //    sh 'echo build master - production'
+    //  }
+    //}
   }
   post {
       always {
