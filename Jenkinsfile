@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    docker { image 'node:7-alpine' }
+    docker { image 'php:7.4-cli' }
   }
 
   environment {
@@ -18,7 +18,7 @@ pipeline {
       steps {
         sh 'echo do build'
         echo sh(returnStdout: true, script: 'env')
-        sh 'node --version'
+        sh 'php -v'
         githubNotify description: 'Build step ok',  status: 'SUCCESS'
       }
     }
