@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    docker { image 'node:7-alpine' }
+  }
 
   environment {
     TEST='test1'
@@ -16,6 +18,8 @@ pipeline {
       steps {
         sh 'echo do build'
         echo sh(returnStdout: true, script: 'env')
+        sh 'node --version'
+        githubNotify description: 'Build step ok',  status: 'SUCCESS'
       }
     }
     stage('Test') {
