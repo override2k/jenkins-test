@@ -73,9 +73,9 @@ pipeline {
     //   }
     // }
   }
-  post {
-      always {
-          sh 'echo Done!'
-      }
-  }
+  // post {
+  //     always {
+  //         sh 'echo Done!'
+  //     }
+  // }
 }
