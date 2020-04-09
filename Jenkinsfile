@@ -30,8 +30,10 @@ pipeline {
 
     stage('Build') {
       agent { 
-        label 'docker'
-        image 'php:7.4-cli'
+        docker {
+          label 'docker'
+          image 'php:7.4-cli'
+        }
       }
       steps {
         sh 'echo do build'
