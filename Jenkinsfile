@@ -16,8 +16,8 @@ pipeline {
 
   stages {
     stage('Sidecar') {
-      dockerNode(image: 'frobledo/php:7.2-cli-composer', sideContainers: ['redis']) {
-        steps {
+      steps {
+        dockerNode(image: 'frobledo/php:7.2-cli-composer', sideContainers: ['redis']) {
           sh php -v
         }
       }
