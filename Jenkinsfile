@@ -16,17 +16,14 @@ pipeline {
 
   stages {
     stage('Sidecar') {
-      steps {
-        script {
-          docker.image('mysql:5').withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3006:3306') { c ->
-              /* Wait until mysql service is up */
-              sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
-              /* Run some tests which require MySQL */
-              sh mysql -V
-          }
+      dockerNode(image: 'frobledo/php:7.2-cli-composer', sideContainers: ['redis']) {
+        steps {
+          sh php -v
         }
       }
     }
+
+
 
     stage('Build') {
       agent { 
